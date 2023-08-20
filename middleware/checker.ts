@@ -1,5 +1,5 @@
 import express from 'express';
-import book from '../type/book';
+import book from '../type/book.js';
 import data2 from '../data/userdata.js';
 
 const methodChecker = (req : book.Request, res : book.Response, next : express.NextFunction) => {
