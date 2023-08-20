@@ -9,7 +9,7 @@ Type=simple
 User=ubuntu
 Group=ubuntu
 WorkingDirectory=/home/ubuntu/app
-ExecStart=/usr/bin/node ./dist/index.js
+ExecStart=/usr/bin/node ./dist/main.js
 Restart=always
 Environment=PORT=80
 
