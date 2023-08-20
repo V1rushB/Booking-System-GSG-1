@@ -1,30 +1,25 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const data_js_1 = __importDefault(require("../data/data.js"));
-const app = express_1.default.Router();
+import express from 'express';
+import data from '../data/data.js';
+const app = express.Router();
 app.get('/health', (req, res) => {
     res.status(200).send('Good Health');
 });
 app.get('/', (req, res) => {
     const title = req.query.title;
     const publicationYear = parseInt(req.query.publicationYear);
-    let newData = data_js_1.default;
+    let newData = data;
     if (title && publicationYear) {
-        newData = data_js_1.default.filter(iterator => {
+        newData = data.filter(iterator => {
             return iterator.title.toLowerCase() === title.toLowerCase() && iterator.publicationYear === publicationYear;
         });
     }
     else if (title) {
-        newData = data_js_1.default.filter(iterator => {
+        newData = data.filter(iterator => {
             return iterator.title.toLowerCase() === title.toLowerCase();
         });
     }
     else if (publicationYear) {
-        const newData = data_js_1.default.filter(iterator => iterator.publicationYear === publicationYear);
+        const newData = data.filter(iterator => iterator.publicationYear === publicationYear);
     }
     if (!newData.length)
         res.status(404).send("No data to show.");
@@ -39,7 +34,7 @@ app.get('/search', (req, res) => {
         const id = parseInt(req.query.search);
         if (isNaN(id))
             res.status(400).send("Send a valid id number");
-        const found = data_js_1.default.find(iterator => iterator.id === id);
+        const found = data.find(iterator => iterator.id === id);
         if (found)
             res.status(200).send(found);
         res.status(404).send("Book Not found.");
@@ -57,23 +52,23 @@ app.post('/', (req, res) => {
         author: req.body.author,
         publicationYear: req.body.publicationYear,
     };
-    const ok = data_js_1.default.findIndex(iterator => iterator.id == newBook.id);
+    const ok = data.findIndex(iterator => iterator.id == newBook.id);
     console.log(~ok);
     if (~ok) {
         res.status(400).send(`User already exists on our 'so-called' database!`);
     }
-    data_js_1.default.unshift(newBook);
+    data.unshift(newBook);
     res.status(200).send("User has been successfully added to our DB");
 });
 app.put('/:id', (req, res) => {
     const id = parseInt(req.params.id);
     if (isNaN(id))
         res.status(400).send("Provide a valid number!");
-    const ok = data_js_1.default.findIndex(iterator => iterator.id == id);
+    const ok = data.findIndex(iterator => iterator.id == id);
     if (~ok) {
-        for (let o = 0; o < data_js_1.default.length; o++) {
-            if (data_js_1.default[o].id === id) {
-                data_js_1.default[o] = Object.assign(Object.assign({}, data_js_1.default[o]), req.body);
+        for (let o = 0; o < data.length; o++) {
+            if (data[o].id === id) {
+                data[o] = { ...data[o], ...req.body };
                 res.status(200).send("Updated successfully.");
             }
         }
@@ -84,11 +79,11 @@ app.delete('/:id', (req, res) => {
     const id = parseInt(req.params.id);
     if (isNaN(id))
         res.status(400).send("Provide a valid number!");
-    const ok = data_js_1.default.findIndex(iterator => iterator.id == id);
+    const ok = data.findIndex(iterator => iterator.id == id);
     if (~ok) {
-        const newData = data_js_1.default.splice(ok, 1);
+        const newData = data.splice(ok, 1);
         res.status(200).send("Book has been deleted!");
     }
     res.send("Book does not exist on this database.");
 });
-exports.default = app;
+export default app;

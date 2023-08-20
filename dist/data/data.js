@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const data = [
     {
         "id": 1,
@@ -242,4 +240,4 @@ const data = [
         "publicationYear": 2003
     }
 ];
-exports.default = data;
+export default data;

@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const data = [
     {
         name: 'ali',
@@ -17,4 +15,4 @@ const data = [
         tokens: 2,
     }
 ];
-exports.default = data;
+export default data;
