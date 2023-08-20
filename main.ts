@@ -1,5 +1,6 @@
 import express from 'express';
 import bookapp from './router/book.js';
+import 'dotenv/config'
 import {methodChecker,checkToken} from './middleware/checker.js';
 
 const app = express();
