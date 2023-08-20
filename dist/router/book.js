@@ -6,6 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const data_js_1 = __importDefault(require("../data/data.js"));
 const app = express_1.default.Router();
+app.get('/health', (req, res) => {
+    res.status(200).send('Good Health');
+});
 app.get('/', (req, res) => {
     const title = req.query.title;
     const publicationYear = parseInt(req.query.publicationYear);

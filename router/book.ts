@@ -6,7 +6,7 @@ const app = express.Router();
 
 
 app.get('/health',(req : book.Request, res : book.Response)=> {
-    res.status(200);
+    res.status(200).send('Good Health');
 })
 
 app.get('/',(req : book.Request ,res : book.Response)=> {

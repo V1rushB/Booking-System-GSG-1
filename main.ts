@@ -4,13 +4,13 @@ import 'dotenv/config'
 import {methodChecker,checkToken} from './middleware/checker.js';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 2077;
 
 app.use(express.json());
 
-//app.use('/',methodChecker);
-app.use('/',checkToken);
-app.use('/Books',bookapp)
+app.use('/',methodChecker);
+//app.use('/',checkToken);
+app.use('/',bookapp)
 
 app.use((req, res) => {
     res.status(404).send("You requested something does not exist :(");
